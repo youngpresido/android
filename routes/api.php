@@ -25,3 +25,8 @@ Route::post('androidapi', 'AndroidController@store');
 
 Route::put('androidapi/{id}', 'AndroidController@store');
 Route::delete('androidapi/{id}', 'AndroidController@destroy');
+
+
+
+
+Route::get('android/create/{id}', 'AndroidController@create');

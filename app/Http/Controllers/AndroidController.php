@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Androidapi;
 use App\Http\Resources\Android;
+use App\Transaction;
 class AndroidController extends Controller
 {
     /**
@@ -12,7 +13,12 @@ class AndroidController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function indexx()
+    {
+        return view('home');
+    }
+
+     public function index()
     {
         $android=Androidapi::paginate(15);
         return Android::collection($android);
@@ -24,9 +30,31 @@ class AndroidController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $transact=Transaction::whereCode($id)->first();
+        if($transact)
+        {
+            if($transact->status==0)
+            {
+                $transact->status=1;
+                $transact->save();
+                return response()->json([
+                    "status"=>201,
+                    "message"=>"licence_key verified"
+                ]);
+            }
+            return response()->json([
+                "status"=>405,
+                "message"=>"licence_key already used"
+            ]);
+
+        }   
+        return response()->json([
+            "status"=>404,
+            "message"=>"licence_key not found"
+        ]);
+
     }
 
     /**
