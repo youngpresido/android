@@ -30,9 +30,10 @@ class AndroidController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create(Request $request)
     {
-        $transact=Transaction::whereCode($id)->first();
+	$id=$request->id;
+        $transact=Transaction::whereReferer_id($id)->first();
         if($transact)
         {
             if($transact->status==0)
@@ -41,7 +42,8 @@ class AndroidController extends Controller
                 $transact->save();
                 return response()->json([
                     "status"=>201,
-                    "message"=>"licence_key verified"
+                    "message"=>"licence_key verified",
+		    "licence"=>$request->id
                 ]);
             }
             return response()->json([

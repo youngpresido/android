@@ -29,4 +29,4 @@ Route::delete('androidapi/{id}', 'AndroidController@destroy');
 
 
 
-Route::get('android/create/{id}', 'AndroidController@create');
+Route::post('android/create', 'AndroidController@create');

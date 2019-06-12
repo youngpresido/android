@@ -25,7 +25,7 @@
                         <input type="text" class="form-control" placeholder="Referer's code" value="{{old('referer')}}" name="metadata">
                     </div>
         
-                    <input type="hidden" name="amount" value="10000">
+                    <input type="hidden" name="amount" value="30000">
                     <input type="hidden" name="key" value="{{ config('paystack.secretKey') }}">
                     <button type="submit" class="btn btn-primary">Pay</button>
                     </form>

@@ -6,7 +6,7 @@
                         <div class="header-wrap2">
                             <div class="logo d-block d-lg-none">
                                 <a href="#">
-                                    <img src="images/icon/logo-white.png" alt="Admin" />
+                                    <img src="images/icon/logo-white.png" alt="ConceptMaster" />
                                 </a>
                             </div>
                             <div class="header-button2">
