@@ -33,7 +33,7 @@ class AndroidController extends Controller
     public function create(Request $request)
     {
 	$id=$request->id;
-        $transact=Transaction::whereReferer_id($id)->first();
+        $transact=Transaction::whereReference($id)->first();
         if($transact)
         {
             if($transact->status==0)

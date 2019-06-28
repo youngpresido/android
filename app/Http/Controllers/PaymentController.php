@@ -25,13 +25,16 @@ class PaymentController extends Controller
         // dd($request->metadata==null);
         if($request->metadata==null){
             // dd("hey");
+
             return Paystack::getAuthorizationUrl()->redirectNow();
             
         }elseif(!Referer::whereCode($request->metadata)->first()){
             return redirect()->back()->with("status","invalid referer's code. leave the referer code empty to buy without one");
             
-        }
+        }else{
+dd(Paystack::getAuthorizationUrl()->redirectNow());
         return Paystack::getAuthorizationUrl()->redirectNow();
+	}
     }
 
     /**
@@ -56,7 +59,7 @@ class PaymentController extends Controller
         $addn=new Transaction([
             'referer_id'=>$referer_id,
             'date'=>now(),
-            'amount'=>100,
+            'amount'=>300,
             "reference"=>$paymentDetails['data']['reference']
 
         ]);
