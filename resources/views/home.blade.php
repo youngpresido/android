@@ -22,7 +22,7 @@
                     </div>
                     <div class="form-group">
                         <label>Referer's code</label>
-                        <input type="text" class="form-control" placeholder="Referer's code" value="{{old('referer')}}" name="metadata">
+                        <input type="text" class="form-control" placeholder="Referer's code" value="" name="metadata[referer]">
                     </div>
         
                     <input type="hidden" name="amount" value="30000">

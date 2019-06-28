@@ -22,5 +22,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
-Route::get('pay/{id}','PaymentController@pay'); 
+Route::get('pay/{id}','PaymentController@pay');
+Route::get('pay/xg/q','PaymentController@testsss'); 
 Route::get('/payment/callback', 'PaymentController@handleGatewayCallback');

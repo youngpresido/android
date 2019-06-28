@@ -17,24 +17,28 @@ class PaymentController extends Controller
      * Redirect the User to Paystack Payment Page
      * @return Url
      */
-    public function redirectToGateway(Request $request)
+    
+    public function redirectToGateway()
     {
-        $this->validate($request,[
-            "email"=>"required"
-        ]);
+        // dd(\Request::get('metadata')['referer']);
         // dd($request->metadata==null);
-        if($request->metadata==null){
+        if(\Request::get('metadata')['referer']==null){
             // dd("hey");
 
             return Paystack::getAuthorizationUrl()->redirectNow();
             
-        }elseif(!Referer::whereCode($request->metadata)->first()){
+        }elseif(!Referer::whereCode(\Request::get('metadata')['referer'])->first()){
             return redirect()->back()->with("status","invalid referer's code. leave the referer code empty to buy without one");
             
-        }else{
-dd(Paystack::getAuthorizationUrl()->redirectNow());
+        }elseif(Referer::whereCode(\Request::get('metadata')['referer'])->first()){
+            // dd("hey");
+            return Paystack::getAuthorizationUrl()->redirectNow();
+    }
+    // return Paystack::getAuthorizationUrl()->redirectNow();
+    }
+    public function testsss()
+    {
         return Paystack::getAuthorizationUrl()->redirectNow();
-	}
     }
 
     /**
@@ -43,17 +47,18 @@ dd(Paystack::getAuthorizationUrl()->redirectNow());
      */
     public function handleGatewayCallback()
     {
+        // dd(Paystack::getPaymentData());
         
         
         $paymentDetails = Paystack::getPaymentData();
         $pay=$paymentDetails['data']['customer'];
         // dd($payment);
-        $referer_id;
-        if($pay['metadata']==null)
+        // $referer_id;
+        if($pay['metadata']['referer']==null)
         {
             $referer_id=1;
         }else{
-            $ref=Referer::whereCode($pay['metadata'])->first();
+            $ref=Referer::whereCode($pay['metadata']['referer'])->first();
             $referer_id=$ref->id;
         }
         $addn=new Transaction([
