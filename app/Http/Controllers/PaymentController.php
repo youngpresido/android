@@ -54,13 +54,15 @@ class PaymentController extends Controller
         $pay=$paymentDetails['data']['customer'];
         // dd($payment);
         // $referer_id;
-        if($pay['metadata']['referer']==null)
+        // dd($paymentDetails);
+        if($paymentDetails['data']['metadata']['referer']==null)
         {
             $referer_id=1;
         }else{
-            $ref=Referer::whereCode($pay['metadata']['referer'])->first();
+            $ref=Referer::whereCode($paymentDetails['data']['metadata']['referer'])->first();
             $referer_id=$ref->id;
         }
+        // dd($referer_id);
         $addn=new Transaction([
             'referer_id'=>$referer_id,
             'date'=>now(),

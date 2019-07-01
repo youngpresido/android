@@ -65,8 +65,13 @@ class RefererController extends Controller
     }
     public function transact()
     {
-        $transactions=Transaction::all();
+        $transactions=Transaction::orderBy('id','desc')->paginate(10);
         return view('admin.transaction',compact('transactions'));
+    }
+    public function transaction($id)
+    {
+        $referers=Referer::whereId($id)->first();
+        return view('admin.each',compact('referers'));
     }
 
     /**

@@ -17,6 +17,7 @@ Route::group(["middleware"=>"auth"],function(){
     Route::post('/add', 'RefererController@store');
     Route::get('/users', 'RefererController@Allusers');
     Route::get('/transact', 'RefererController@transact');
+    Route::get('/transact/{id}', 'RefererController@transaction')->name('eacht');
 });
 Auth::routes();
 

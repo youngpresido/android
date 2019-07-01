@@ -21,12 +21,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if(count($transactions)< 1)
+                                            @if(count($referers->transaction)< 1)
                                             <div class="alert alert-primary">
                                                 No pending transactions yet
                                             </div>
                                             @else
-                                            @foreach($transactions as $transact)
+                                            @foreach($referers->transaction as $transact)
                                             <tr>
                                                 <td>{{$transact->referer->code}}</td>
                                                 <td><a href="{{route('eacht',$transact->referer->id)}}">{{$transact->referer->name}}</a></td>
@@ -45,8 +45,8 @@
                                             @endforeach
                                             @endif
                                             <tr>
-                                                <td>{{$transactions->links()}}</td>
-</tr>
+                                                <td>Total: {{$referers->transaction->where('status',0)->sum('amount')}}</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
